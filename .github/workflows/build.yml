@@ -144,7 +144,7 @@ jobs:
           ./configure  --host=android-${{ matrix.arch }} --enable-portal -- -Dfrida-gum:devkits=gum,gumjs -Dfrida-core:devkits=core
 
     - name: Compile
-      run: make
+      run: ls && make
 
     - name: Check release version
       id: checkReleaseVersion
