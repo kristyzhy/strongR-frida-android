@@ -145,7 +145,7 @@ jobs:
 
     - name: Compile
       shell: bash
-      run: ls && make
+      run: cd frida && make
 
     - name: Check release version
       id: checkReleaseVersion
