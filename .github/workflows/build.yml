@@ -59,24 +59,10 @@ jobs:
             }
 
 
-  create_release:
-    needs: check_version
-    runs-on: ubuntu-22.04
-    if: needs.check_version.outputs.ALREADY_RELEASE == '0'
-
-    steps:
-      - uses: actions/create-release@master
-        id: createRelease
-        name: Create Runner Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
-          release_name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
-          prerelease: false
 
   android_build:
     runs-on: ubuntu-22.04
+    if: needs.check_version.outputs.ALREADY_RELEASE == '0'
     needs: [check_version, create_release]
     strategy:
       matrix:
@@ -148,29 +134,29 @@ jobs:
       shell: bash
       run: ls -lh && cd frida && ls -lh && make
 
-    - name: Check release version
-      id: checkReleaseVersion
-      uses: actions/github-script@v3.1.0
-      with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          try {
-            const releaseVersion = '${{ needs.check_version.outputs.FRIDA_VERSION }}'
-            const releaseResponse = await github.repos.getReleaseByTag({
-              owner: '${{ secrets.GIT_OWNER }}',
-              repo: '${{ secrets.GIT_REPO }}',
-              tag: releaseVersion
-            })
-            const {
-              data: { id: releaseId, html_url: htmlUrl, upload_url: uploadUrl }
-            } = releaseResponse;
-            core.setOutput('id', releaseId);
-            core.setOutput('html_url', htmlUrl);
-            core.setOutput('upload_url', uploadUrl);
-            core.setOutput('version', releaseVersion);
-          } catch (e) {
-            core.setFailed(e.message);
-          }
+#    - name: Check release version
+#      id: checkReleaseVersion
+#      uses: actions/github-script@v3.1.0
+#      with:
+#        github-token: ${{secrets.GITHUB_TOKEN}}
+#        script: |
+#          try {
+#            const releaseVersion = '${{ needs.check_version.outputs.FRIDA_VERSION }}'
+#            const releaseResponse = await github.repos.getReleaseByTag({
+#              owner: '${{ secrets.GIT_OWNER }}',
+#              repo: '${{ secrets.GIT_REPO }}',
+#              tag: releaseVersion
+#            })
+#            const {
+#              data: { id: releaseId, html_url: htmlUrl, upload_url: uploadUrl }
+#            } = releaseResponse;
+#            core.setOutput('id', releaseId);
+#            core.setOutput('html_url', htmlUrl);
+#            core.setOutput('upload_url', uploadUrl);
+#            core.setOutput('version', releaseVersion);
+#          } catch (e) {
+#            core.setFailed(e.message);
+#          }
 
     - name: package build result for Android
       shell: bash
@@ -199,7 +185,17 @@ jobs:
         xz build/frida-android-x86_64/lib/frida/64/frida-gadget.so
         
         popd
-        
+
+    - uses: actions/create-release@master
+      id: createRelease
+      name: Create Runner Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
+        release_name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
+        prerelease: false
+
     - name: Upload android arm frida-server for strongR-frida
       uses: actions/upload-release-asset@v1.0.2
       env:
