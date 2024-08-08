@@ -30,6 +30,7 @@ jobs:
               data: { tag_name: ver }
             } = releaseResponse;
             core.setOutput('FRIDA_VERSION', ver);
+
       - name: Check release version
         id: checkReleaseVersion
         uses: actions/github-script@v3.1.0
@@ -264,10 +265,12 @@ jobs:
       - name: Publish release to GitHub
         uses: softprops/action-gh-release@v2
         with:
-          name: "Hluda ${{ env.FRIDA_VERSION }}"
+          name: "Hluda ${{ needs.check_version.outputs.FRIDA_VERSION }}"
           body: "See https://frida.re/news/ for details."
           files: build/release-assets/*
-          tag_name: ${{ env.FRIDA_VERSION }}
+          tag_name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
+          prerelease: true
+
 #    - name: package build result for Android
 #      shell: bash
 #      run: |
