@@ -63,7 +63,7 @@ jobs:
   android_build:
     runs-on: ubuntu-22.04
     if: needs.check_version.outputs.ALREADY_RELEASE == '0'
-    needs: [check_version, create_release]
+    needs: [check_version]
     strategy:
       matrix:
         arch: [x86, x86_64, arm, arm64]
@@ -164,6 +164,7 @@ jobs:
         pushd frida
         ls -lh
         ls -lh build
+        apt-get install tree
         tree build
         
         xz build/frida-android-arm/bin/frida-server
