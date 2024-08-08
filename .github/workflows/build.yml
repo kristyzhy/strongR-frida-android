@@ -216,18 +216,18 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
-      - name: Package Gum devkit
-        uses: ./.github/actions/package-artifact-files-as-tarball
-        with:
-          name: hluda-gum-devkit-android-${{ matrix.arch }}
-      - name: Package GumJS devkit
-        uses: ./.github/actions/package-artifact-files-as-tarball
-        with:
-          name: hluda-gumjs-devkit-android-${{ matrix.arch }}
-      - name: Package Core devkit
-        uses: ./.github/actions/package-artifact-files-as-tarball
-        with:
-          name: hluda-core-devkit-android-${{ matrix.arch }}
+#      - name: Package Gum devkit
+#        uses: ./.github/actions/package-artifact-files-as-tarball
+#        with:
+#          name: hluda-gum-devkit-android-${{ matrix.arch }}
+#      - name: Package GumJS devkit
+#        uses: ./.github/actions/package-artifact-files-as-tarball
+#        with:
+#          name: hluda-gumjs-devkit-android-${{ matrix.arch }}
+#      - name: Package Core devkit
+#        uses: ./.github/actions/package-artifact-files-as-tarball
+#        with:
+#          name: hluda-core-devkit-android-${{ matrix.arch }}
       - name: Package frida-server
         uses: ./.github/actions/package-artifact-file
         with:
