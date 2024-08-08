@@ -103,6 +103,9 @@ jobs:
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r25b
+        add-to-path: false
+    - name: Add ANDROID_NDK_ROOT to environment
+      run: echo "ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}" >> $GITHUB_ENV
 
     - name: Set up Python 3.11
       uses: actions/setup-python@v2
@@ -117,7 +120,7 @@ jobs:
 #        python3 -m pip install lief
 #        python3 -m pip install graphlib
 
-    - name: build frida for Android
+    - name: Pull and patch frida
       shell: bash
       run: |
         git config --global user.name "${{ secrets.GIT_NAME }}"
