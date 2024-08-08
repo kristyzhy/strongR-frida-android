@@ -174,7 +174,7 @@ jobs:
       shell: bash
       run: |
         pushd frida
-        
+        cd frida
         xz build/frida-android-arm/bin/frida-server
         xz build/frida-android-arm64/bin/frida-server
         
