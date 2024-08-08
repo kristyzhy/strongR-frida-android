@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs: 
-  check_version:
+  check-version:
     runs-on: ubuntu-22.04
 
     outputs:
@@ -63,10 +63,10 @@ jobs:
 
 
 
-  android_build:
+  android-build:
     runs-on: ubuntu-22.04
     if: needs.check_version.outputs.ALREADY_RELEASE == '0'
-    needs: [check_version]
+    needs: [check-version]
     strategy:
       matrix:
         arch: [x86, x86_64, arm, arm64]
