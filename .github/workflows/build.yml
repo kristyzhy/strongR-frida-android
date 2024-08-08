@@ -170,11 +170,12 @@ jobs:
           } catch (e) {
             core.setFailed(e.message);
           }
+
     - name: package build result for Android
       shell: bash
       run: |
+        ls -lh
         pushd frida
-        cd frida
         xz build/frida-android-arm/bin/frida-server
         xz build/frida-android-arm64/bin/frida-server
         
