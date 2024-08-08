@@ -269,7 +269,7 @@ jobs:
           name: "Hluda ${{ needs.check-version.outputs.FRIDA_VERSION }}"
           body: "See https://frida.re/news/ for details."
           files: build/release-assets/*
-          tag_name: "${{ needs.check_version.outputs.FRIDA_VERSION }}"
+          tag_name: "${{ needs.check-version.outputs.FRIDA_VERSION }}"
           prerelease: false
 
 #    - name: package build result for Android
