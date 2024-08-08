@@ -60,6 +60,7 @@ jobs:
 
 
   create_release:
+    permissions: write-all
     needs: check_version
     runs-on: ubuntu-20.04
     if: needs.check_version.outputs.ALREADY_RELEASE == '0'
