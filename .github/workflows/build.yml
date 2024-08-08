@@ -174,8 +174,8 @@ jobs:
     - name: package build result for Android
       shell: bash
       run: |
-        ls -lh
         pushd frida
+        ls -lh
         xz build/frida-android-arm/bin/frida-server
         xz build/frida-android-arm64/bin/frida-server
         
