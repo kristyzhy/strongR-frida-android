@@ -218,31 +218,31 @@ jobs:
       - name: Package Gum devkit
         uses: ./.github/actions/package-artifact-files-as-tarball
         with:
-          name: frida-gum-devkit-android-${{ matrix.arch }}
+          name: hluda-gum-devkit-android-${{ matrix.arch }}
       - name: Package GumJS devkit
         uses: ./.github/actions/package-artifact-files-as-tarball
         with:
-          name: frida-gumjs-devkit-android-${{ matrix.arch }}
+          name: hluda-gumjs-devkit-android-${{ matrix.arch }}
       - name: Package Core devkit
         uses: ./.github/actions/package-artifact-files-as-tarball
         with:
-          name: frida-core-devkit-android-${{ matrix.arch }}
+          name: hluda-core-devkit-android-${{ matrix.arch }}
       - name: Package frida-server
         uses: ./.github/actions/package-artifact-file
         with:
-          name: frida-server-android-${{ matrix.arch }}
+          name: hluda-server-android-${{ matrix.arch }}
       - name: Package frida-portal
         uses: ./.github/actions/package-artifact-file
         with:
-          name: frida-portal-android-${{ matrix.arch }}
+          name: hluda-portal-android-${{ matrix.arch }}
       - name: Package frida-gadget
         uses: ./.github/actions/package-artifact-file
         with:
-          name: frida-gadget-android-${{ matrix.arch }}
+          name: hluda-gadget-android-${{ matrix.arch }}
       - name: Package frida-inject
         uses: ./.github/actions/package-artifact-file
         with:
-          name: frida-inject-android-${{ matrix.arch }}
+          name: hluda-inject-android-${{ matrix.arch }}
 
   publish-prod:
     if: startsWith(github.ref, 'refs/tags/')
