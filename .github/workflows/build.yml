@@ -115,14 +115,13 @@ jobs:
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida/subprojects/frida-core
-        git am ../../../Patchs/strongR-frida/frida-core/*.patch
+        git am ${{ github.workspace }}/Patchs/strongR-frida/frida-core/*.patch
     - name: two step patch   
       shell: bash
       run: |
         cd frida/subprojects/frida-gum/gum
-        git am ../../../../Patchs/strongR-frida/frida-gum/*.patch
-        cd ../../../
-        
+        git am ${{ github.workspace }}/Patchs/strongR-frida/frida-gum/*.patch
+
     - name: Configure
       shell: bash
       run: |
@@ -164,7 +163,7 @@ jobs:
         pushd frida
         ls -lh
         ls -lh build
-        apt-get install tree
+        sudo apt-get install -y tree
         tree build
         
         xz build/frida-android-arm/bin/frida-server
