@@ -113,9 +113,9 @@ jobs:
     - name: Pull and patch frida
       shell: bash
       run: |
-        git config --global user.name "${{ secrets.GIT_NAME }}"
-        git config --global user.email "${{ secrets.GIT_EMAIL }}"
-        git clone ${{ secrets.PATCH_REPO }}
+        git config --global user.name "kristy"
+        git config --global user.email "kristyzhy@gmail.com"              
+        git clone https://github.com/${{ github.repository }}.git
         export ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}
         git clone --recurse-submodules https://github.com/frida/frida
         cd frida/subprojects/frida-core
